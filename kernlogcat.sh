@@ -24,6 +24,22 @@ cat /var/log/kern.log       >> kernlog.txt
 
 INFILE='kernlog.txt'
 scan_for "Incoming" | \
-cat > junk.txt
+tee junk.txt | \
+awk 'BEGIN { } \
+    {
+     if ($1 > 3000) print $2;
+    }
+    END { } ' | \
+sort | \
+cat > badboys.txt
 rm kernlog.txt
 
+# Now dump the iptables to list the current set of drops
+iptables -nL | \
+tee iptables.txt | \
+grep "DROPPEDNETPERF  tcp" | \
+sed -E 's/^.* --  //g' | \
+sed -E 's/[ ].*$//g'  | \
+sort | \
+tee junk.txt | \
+comm -13 - badboys.txt
