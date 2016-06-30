@@ -35,6 +35,7 @@ cat > badboys.txt
 rm kernlog.txt
 
 # Now dump the iptables to list the current set of drops
+echo "Addresses with greater than 3000 connections that aren't listed in iptables" 
 iptables -nL | \
 tee iptables.txt | \
 grep "DROPPEDNETPERF  tcp" | \
