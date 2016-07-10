@@ -27,15 +27,15 @@ scan_for "Incoming" | \
 tee junk.txt | \
 awk 'BEGIN { } \
     {
-     if ($1 > 3000) print $2;
+     if ($1 > 20000) print $2;
     }
     END { } ' | \
 sort | \
 cat > badboys.txt
-rm kernlog.txt
+# rm kernlog.txt
 
 # Now dump the iptables to list the current set of drops
-echo "Addresses with greater than 3000 connections that aren't listed in iptables" 
+echo "Addresses with greater than 20,000 connections that aren't listed in iptables" 
 iptables -nL | \
 tee iptables.txt | \
 grep "DROPPEDNETPERF  tcp" | \
