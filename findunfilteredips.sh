@@ -31,7 +31,7 @@ awk 'BEGIN { } \
     }
     END { } ' | \
 sort | \
-cat > badboys.txt
+cat > heavyusers.txt
 # rm kernlog.txt
 
 # Now dump the iptables to list the current set of drops
@@ -42,5 +42,5 @@ grep "DROPPEDNETPERF  tcp" | \
 sed -E 's/^.* --  //g' | \
 sed -E 's/[ ].*$//g'  | \
 sort | \
-tee junk.txt | \
-comm -13 - badboys.txt
+tee iptables-addresses.txt | \
+comm -13 - heavyusers.txt
