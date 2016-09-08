@@ -1,10 +1,24 @@
 Chain INPUT (policy ACCEPT)
 target     prot opt source               destination         
 f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
+DROPPEDNETPERF  tcp  --  88.210.114.193       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  176.78.140.180       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  81.84.240.155        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  85.240.43.136        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  87.196.139.106       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  87.196.147.238       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  93.102.161.249       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  87.196.174.96        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  82.154.205.119       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  79.168.56.236        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  85.244.98.252        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  82.154.207.39        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  78.130.115.192       0.0.0.0/0            tcp dpt:12865
+f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
+DROPPEDNETPERF  tcp  --  82.154.192.8         0.0.0.0/0            tcp dpt:12865
 f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
 DROPPEDNETPERF  tcp  --  93.102.38.229        0.0.0.0/0            tcp dpt:12865
 DROPPEDNETPERF  tcp  --  82.154.196.197       0.0.0.0/0            tcp dpt:12865
-DROPPEDNETPERF  tcp  --  64.222.236.200       0.0.0.0/0            tcp dpt:12865
 DROPPEDNETPERF  tcp  --  78.130.51.245        0.0.0.0/0            tcp dpt:12865
 DROPPEDNETPERF  tcp  --  176.78.183.238       0.0.0.0/0            tcp dpt:12865
 DROPPEDNETPERF  tcp  --  109.49.94.196        0.0.0.0/0            tcp dpt:12865
@@ -58,14 +72,15 @@ Chain OUTPUT (policy ACCEPT)
 target     prot opt source               destination         
 LOG        tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:80 LOG flags 0 level 4 prefix "Outgoing web "
 
-Chain DROPPEDNETPERF (47 references)
+Chain DROPPEDNETPERF (60 references)
 target     prot opt source               destination         
 LOG        all  --  0.0.0.0/0            0.0.0.0/0            LOG flags 0 level 4 prefix "Dropped netperf "
 DROP       all  --  0.0.0.0/0            0.0.0.0/0           
 
-Chain f2b-sshd (2 references)
+Chain f2b-sshd (3 references)
 target     prot opt source               destination         
 REJECT     all  --  40.76.71.62          0.0.0.0/0            reject-with icmp-port-unreachable
+RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
 RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
 RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
 RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
