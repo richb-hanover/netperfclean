@@ -24,13 +24,15 @@ cat /var/log/kern.log       >> kernlog.txt
 
 INFILE='kernlog.txt'
 scan_for "Incoming" | \
-tee junk.txt | \
+tee countsofip.txt | \
+# split off the count, and output lines with counts > 20000
 awk 'BEGIN { } \
     {
      if ($1 > 20000) print $2;
     }
     END { } ' | \
 sort | \
+# heavyusers.txt has IP addresses with counts > 20000
 cat > heavyusers.txt
 # rm kernlog.txt
 
@@ -42,6 +44,7 @@ grep "DROPPEDNETPERF  tcp" | \
 sed -E 's/^.* --  //g' | \
 sed -E 's/[ ].*$//g'  | \
 sort | \
+# iptables-addresses.txt has the list of DROPPEDNETPERF addresses in iptables
 tee iptables-addresses.txt | \
-comm -13 - heavyusers.txt | \
-grep -f heavyusers.txt junk.txt
+comm -13 - heavyusers.txt > filteredheavyusers.txt
+grep -f filteredheavyusers.txt countsofip.txt
