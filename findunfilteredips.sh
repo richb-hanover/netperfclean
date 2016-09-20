@@ -43,4 +43,5 @@ sed -E 's/^.* --  //g' | \
 sed -E 's/[ ].*$//g'  | \
 sort | \
 tee iptables-addresses.txt | \
-comm -13 - heavyusers.txt
+comm -13 - heavyusers.txt | \
+grep -f heavyusers.txt junk.txt
