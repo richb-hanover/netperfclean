@@ -48,3 +48,6 @@ sort | \
 tee iptables-addresses.txt | \
 comm -13 - heavyusers.txt > filteredheavyusers.txt
 grep -f filteredheavyusers.txt countsofip.txt
+
+# And finally scan the iptables for duplicate addresses
+sh checkforiptablesdups.sh
