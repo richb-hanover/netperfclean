@@ -19,7 +19,7 @@
 
 cat kernlog.txt | \
 grep "Incoming netperf" | \
-grep $1 | \
+grep SRC=$1 | \
 tee temp.txt | \
 sed -E 's/netperf kernel.*//g' | \
 sed -E 's/......$//g' | \
