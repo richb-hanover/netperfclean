@@ -10,3 +10,8 @@ done < filteredheavyusers.txt
 
 sudo su -c 'iptables-save  > /etc/iptables/rules.v4' # must be root...
 sudo su -c 'ip6tables-save > /etc/iptables/rules.v6'
+
+# And commit the newest iptables.txt
+
+git add iptables.txt
+git commit -m "Update iptables.txt"
