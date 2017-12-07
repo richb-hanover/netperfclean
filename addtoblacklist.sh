@@ -2,7 +2,7 @@
 
 while read in; do
 
-     sudo iptables -I INPUT 3 -p tcp --dport 12865 -j DROPPEDNETPERF --src "$in";
+     sudo iptables -I INPUT 5 -p tcp --dport 12865 -j DROPPEDNETPERF --src "$in";
 
 done < filteredheavyusers.txt
 
