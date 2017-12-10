@@ -25,19 +25,20 @@ cat /var/log/kern.log       >> kernlog.txt
 INFILE='kernlog.txt'
 scan_for "Incoming" | \
 tee countsofip.txt | \
-# split off the count, and output lines with counts > 20000
+# split off the count, and output lines with high counts
 awk 'BEGIN { } \
     {
-     if ($1 > 20000) print $2;
+     if ($1 > 10000) print $2;
     }
     END { } ' | \
 sort | \
-# heavyusers.txt has IP addresses with counts > 20000
+# heavyusers.txt has IP addresses with high counts
 cat > heavyusers.txt
 # rm kernlog.txt
 
 # Now dump the iptables to list the current set of drops
-echo "Addresses with greater than 20,000 connections that aren't listed in iptables" 
+echo "Addresses with greater than 10,000 connections that aren't listed 
+in iptables" 
 iptables -nL | \
 tee iptables.txt | \
 grep "DROPPEDNETPERF  tcp" | \
