@@ -4,6 +4,10 @@ f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 2
 f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
            tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:12865 state NEW recent: SET name: netperf side: source
 RATELIMITNETPERF  tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:12865 state NEW recent: UPDATE seconds: 120 hit_count: 20 name: netperf side: source
+DROPPEDNETPERF  tcp  --  87.103.0.0/16        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  5.158.0.0/16         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  176.78.0.0/16        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  118.179.0.0/16       0.0.0.0/0            tcp dpt:12865
 DROPPEDNETPERF  tcp  --  218.17.81.138        0.0.0.0/0            tcp dpt:12865
 DROPPEDNETPERF  tcp  --  193.126.0.0/16       0.0.0.0/0            tcp dpt:12865
 DROPPEDNETPERF  tcp  --  85.244.0.0/16        0.0.0.0/0            tcp dpt:12865
@@ -34,7 +38,7 @@ Chain OUTPUT (policy ACCEPT)
 target     prot opt source               destination         
 LOG        tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:80 LOG flags 0 level 4 prefix "Outgoing web "
 
-Chain DROPPEDNETPERF (21 references)
+Chain DROPPEDNETPERF (25 references)
 target     prot opt source               destination         
 LOG        all  --  0.0.0.0/0            0.0.0.0/0            LOG flags 0 level 4 prefix "Dropped netperf "
 DROP       all  --  0.0.0.0/0            0.0.0.0/0           
