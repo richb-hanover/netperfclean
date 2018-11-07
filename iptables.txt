@@ -4,6 +4,14 @@ f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 2
 f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
 f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
 f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
+f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
+DROPPEDNETPERF  tcp  --  79.169.3.108         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.246.145.153      0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.230.224.79       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  186.125.12.20        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  186.124.183.140      0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  181.91.215.0         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  181.164.130.67       0.0.0.0/0            tcp dpt:12865
 DROPPEDNETPERF  tcp  --  89.180.207.231       0.0.0.0/0            tcp dpt:12865
 DROPPEDNETPERF  tcp  --  190.96.116.179       0.0.0.0/0            tcp dpt:12865
 DROPPEDNETPERF  tcp  --  190.190.149.143      0.0.0.0/0            tcp dpt:12865
@@ -86,7 +94,7 @@ Chain OUTPUT (policy ACCEPT)
 target     prot opt source               destination         
 LOG        tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:80 LOG flags 0 level 4 prefix "Outgoing web "
 
-Chain DROPPEDNETPERF (70 references)
+Chain DROPPEDNETPERF (77 references)
 target     prot opt source               destination         
 LOG        all  --  0.0.0.0/0            0.0.0.0/0            LOG flags 0 level 4 prefix "Dropped netperf "
 DROP       all  --  0.0.0.0/0            0.0.0.0/0           
@@ -96,9 +104,10 @@ target     prot opt source               destination
 LOG        all  --  0.0.0.0/0            0.0.0.0/0            LOG flags 0 level 4 prefix "Rate-limit netperf "
 DROP       all  --  0.0.0.0/0            0.0.0.0/0           
 
-Chain f2b-sshd (5 references)
+Chain f2b-sshd (6 references)
 target     prot opt source               destination         
 REJECT     all  --  40.76.71.62          0.0.0.0/0            reject-with icmp-port-unreachable
+RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
 RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
 RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
 RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
