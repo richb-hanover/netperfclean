@@ -20,8 +20,8 @@
 cat kernlog.txt | \
 grep "Incoming netperf" | \
 grep SRC=$1 | \
+sed -E 's/atl kernel.*//g' | \
 tee temp.txt | \
-sed -E 's/netperf kernel.*//g' | \
 sed -E 's/......$//g' | \
 uniq -c
 echo "$1 `wc -l < temp.txt` lines"
