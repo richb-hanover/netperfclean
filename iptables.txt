@@ -4,6 +4,18 @@ f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 2
 f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
 f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
 f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
+DROPPEDNETPERF  tcp  --  62.14.79.184         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  46.77.65.127         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.96.117.82        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.55.213.66        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.225.90.184       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.173.100.21       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.138.122.235      0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  186.137.53.11        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  181.99.228.52        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  181.92.23.224        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  170.51.148.61        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  106.51.66.239        0.0.0.0/0            tcp dpt:12865
 DROPPEDNETPERF  tcp  --  190.229.197.120      0.0.0.0/0            tcp dpt:12865
 DROPPEDNETPERF  tcp  --  190.136.242.33       0.0.0.0/0            tcp dpt:12865
 DROPPEDNETPERF  tcp  --  181.99.230.214       0.0.0.0/0            tcp dpt:12865
@@ -201,7 +213,7 @@ Chain OUTPUT (policy ACCEPT)
 target     prot opt source               destination         
 LOG        tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:80 LOG flags 0 level 4 prefix "Outgoing web "
 
-Chain DROPPEDNETPERF (182 references)
+Chain DROPPEDNETPERF (194 references)
 target     prot opt source               destination         
 LOG        all  --  0.0.0.0/0            0.0.0.0/0            LOG flags 0 level 4 prefix "Dropped netperf "
 DROP       all  --  0.0.0.0/0            0.0.0.0/0           
