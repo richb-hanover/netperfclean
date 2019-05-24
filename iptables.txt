@@ -4,6 +4,20 @@ f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 2
 f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
 f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
 f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
+DROPPEDNETPERF  tcp  --  213.249.156.224      0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  200.117.195.14       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  200.105.111.2        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.55.214.205       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.194.39.170       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.173.122.77       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.138.122.51       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.136.242.138      0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  186.124.43.177       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  186.12.101.253       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  181.99.228.210       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  181.92.7.6           0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  181.21.55.178        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  170.51.178.19        0.0.0.0/0            tcp dpt:12865
 DROPPEDNETPERF  tcp  --  62.14.79.184         0.0.0.0/0            tcp dpt:12865
 DROPPEDNETPERF  tcp  --  46.77.65.127         0.0.0.0/0            tcp dpt:12865
 DROPPEDNETPERF  tcp  --  190.96.117.82        0.0.0.0/0            tcp dpt:12865
@@ -213,7 +227,7 @@ Chain OUTPUT (policy ACCEPT)
 target     prot opt source               destination         
 LOG        tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:80 LOG flags 0 level 4 prefix "Outgoing web "
 
-Chain DROPPEDNETPERF (194 references)
+Chain DROPPEDNETPERF (208 references)
 target     prot opt source               destination         
 LOG        all  --  0.0.0.0/0            0.0.0.0/0            LOG flags 0 level 4 prefix "Dropped netperf "
 DROP       all  --  0.0.0.0/0            0.0.0.0/0           
