@@ -4,6 +4,25 @@ f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 2
 f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
 f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
 f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
+DROPPEDNETPERF  tcp  --  85.242.252.70        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  81.84.185.61         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  45.231.157.226       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  45.231.157.202       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  200.117.160.85       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.55.104.77        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.245.215.24       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.226.94.112       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.226.181.5        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.16.104.248       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.136.243.141      0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  186.108.149.130      0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  181.99.62.163        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  181.95.92.15         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  181.92.6.241         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  181.228.195.129      0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  181.21.48.109        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  181.169.92.17        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  174.69.224.102       0.0.0.0/0            tcp dpt:12865
 f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
 DROPPEDNETPERF  tcp  --  85.242.252.135       0.0.0.0/0            tcp dpt:12865
 DROPPEDNETPERF  tcp  --  84.112.97.4          0.0.0.0/0            tcp dpt:12865
@@ -469,7 +488,7 @@ Chain OUTPUT (policy ACCEPT)
 target     prot opt source               destination         
 LOG        tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:80 LOG flags 0 level 4 prefix "Outgoing web "
 
-Chain DROPPEDNETPERF (447 references)
+Chain DROPPEDNETPERF (466 references)
 target     prot opt source               destination         
 LOG        all  --  0.0.0.0/0            0.0.0.0/0            LOG flags 0 level 4 prefix "Dropped netperf "
 DROP       all  --  0.0.0.0/0            0.0.0.0/0           
