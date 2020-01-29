@@ -35,7 +35,7 @@ scan_for "Incoming" | \
 tee countsofip.txt | \
 # split off the count, and output lines with high counts
 awk -v num_entries=$NUM_ENTRIES \
-    'BEGIN { print num_entries } \
+    'BEGIN { } \
     {
      if ($1 > num_entries) print $2;
     }

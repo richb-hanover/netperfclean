@@ -7,9 +7,10 @@ Feb 11 03:11:45 atl kernel: [9353834.165208] Incoming netperf IN=lo OUT= MAC=00:
 SRC=23.226.232.80 DST=23.226.232.80 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=38423 DF PROTO=TCP SPT=56374 DPT=12865 WINDOW=65535 RES=0x00 SYN 
 URGP=0
  
-sudo sh findunfiltered.sh scans the last week's /var/log/kern.log* files for those "Incoming netperf" lines,
+sudo sh findunfiltered.sh ### scans the last week's /var/log/kern.log* files for those "Incoming 
+netperf" lines,
 isolates the SRC=... addresses, and creates a frequency count of those addresses. It writes a list of IP addresses
-that occur more than 10K in the seven days to a file heavyusers.txt.
+that occur more than ### lines (default = 5000) in the seven days to a file heavyusers.txt.
 
 It then compares it to the list of IP addresses that are already filtered in iptables (into the DROPPEDNETPERF chain)
 and writes that (shorter list) to filteredheavyusers.txt
