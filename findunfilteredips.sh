@@ -13,6 +13,14 @@ scan_for() {
     sort | uniq -c | sort -nr
 }
 
+NUM_ENTRIES=$1
+if [ -z $NUM_ENTRIES ]
+then
+   NUM_ENTRIES=5000
+fi
+
+echo "Number of entries to scan for: $NUM_ENTRIES"
+
 zcat /var/log/kern.log.7.gz >  kernlog.txt
 zcat /var/log/kern.log.6.gz >> kernlog.txt
 zcat /var/log/kern.log.5.gz >> kernlog.txt
@@ -26,9 +34,10 @@ INFILE='kernlog.txt'
 scan_for "Incoming" | \
 tee countsofip.txt | \
 # split off the count, and output lines with high counts
-awk 'BEGIN { } \
+awk -v num_entries=$NUM_ENTRIES \
+    'BEGIN { print num_entries } \
     {
-     if ($1 > 10000) print $2;
+     if ($1 > num_entries) print $2;
     }
     END { } ' | \
 sort | \
@@ -37,7 +46,7 @@ cat > heavyusers.txt
 # rm kernlog.txt
 
 # Now dump the iptables to list the current set of drops
-echo "Addresses with greater than 10,000 connections that aren't listed 
+echo "Addresses with greater than $NUM_ENTRIES connections that aren't listed 
 in iptables" 
 iptables -nL | \
 tee iptables.txt | \
