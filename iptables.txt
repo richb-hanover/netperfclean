@@ -4,6 +4,82 @@ f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 2
 f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
 f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
 f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
+DROPPEDNETPERF  tcp  --  98.191.220.186       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  98.152.52.122        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  97.65.4.209          0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  97.65.4.208          0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  97.65.4.207          0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  95.174.67.180        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  95.174.67.132        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  94.68.237.179        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  94.68.116.170        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  94.66.95.187         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  94.66.58.197         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  94.66.223.187        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  94.66.221.118        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  94.65.167.145        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  85.75.67.164         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  85.73.138.96         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  85.72.74.108         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  79.131.0.63          0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  73.17.144.205        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  70.184.11.62         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  69.77.157.46         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  69.77.157.45         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  69.77.157.42         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  69.77.132.3          0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  67.198.51.62         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  67.135.67.130        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  65.153.194.218       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  62.74.227.42         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  62.103.79.213        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  50.225.76.92         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  50.225.76.90         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  50.203.183.254       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  45.231.157.193       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  45.231.156.123       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  45.225.214.63        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  2.87.166.139         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  2.84.2.192           0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  2.84.215.6           0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  2.84.215.0           0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  24.232.35.251        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  212.205.230.196      0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  212.205.21.178       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  201.231.78.5         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  201.231.78.47        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  201.231.25.16        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  200.59.232.50        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  200.43.245.223       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  200.123.41.197       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.246.138.168      0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.245.216.242      0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.2.31.53          0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.230.199.123      0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.190.140.136      0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.190.136.17       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.189.15.97        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.189.153.244      0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.18.171.247       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.18.170.198       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.175.183.195      0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.175.166.187      0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.17.14.67         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  190.136.240.204      0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  186.138.42.119       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  186.135.119.80       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  186.13.114.51        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  181.28.151.157       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  181.228.194.43       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  181.169.1.29         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  181.117.27.117       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  152.170.93.159       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  152.169.217.117      0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  152.168.68.230       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  12.37.255.35         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  12.204.80.101        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  12.18.202.132        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  108.7.234.122        0.0.0.0/0            tcp dpt:12865
 LOG        tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:12865 LOG flags 0 level 4 prefix "Incoming netperf "
 
 Chain FORWARD (policy ACCEPT)
@@ -13,7 +89,7 @@ Chain OUTPUT (policy ACCEPT)
 target     prot opt source               destination         
 LOG        tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:80 LOG flags 0 level 4 prefix "Outgoing web "
 
-Chain DROPPEDNETPERF (0 references)
+Chain DROPPEDNETPERF (76 references)
 target     prot opt source               destination         
 
 Chain RATELIMITNETPERF (0 references)
@@ -24,28 +100,4 @@ DROP       all  --  0.0.0.0/0            0.0.0.0/0
 Chain f2b-sshd (4 references)
 target     prot opt source               destination         
 REJECT     all  --  40.76.71.62          0.0.0.0/0            reject-with icmp-port-unreachable
-RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
-RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
-RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
-RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
-RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
-RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
-RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
-RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
-RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
-RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
-RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
-RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
-RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
-RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
-RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
-RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
-RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
-RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
-RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
-RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
-RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
-RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
-RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
-RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
 RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
