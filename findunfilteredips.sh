@@ -73,7 +73,9 @@ sort | \
 # save that list in iptables-addresses.txt
 tee iptables-addresses.txt | \
 # find the addresses in heavyusers.txt that *aren't* already in iptables
-comm -13 - heavyusers.txt > filteredheavyusers.txt
+comm -13 - heavyusers.txt | \
+# remove whitelist hosts from list to be added to iptables 
+grep -vf whitelist.txt > filteredheavyusers.txt
 # display addresses from countsofip.txt that aren't already in iptables
 grep -f filteredheavyusers.txt countsofip.txt
 
