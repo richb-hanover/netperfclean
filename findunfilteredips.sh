@@ -27,7 +27,10 @@ then
    NUM_ENTRIES=5000
 fi
 
-echo "Number of entries to scan for: $NUM_ENTRIES"
+echo "`date +'%d %b %Y %H:%M:%S'`: Addresses with more than $NUM_ENTRIES connections that aren't listed in iptables" 
+
+# cd to this directory so all files are local...
+cd /home/richb/src/kernlogscan
 
 # combine all recent kern.log files into a local file
 # zcat /var/log/kern.log.7.gz >  kernlog.txt
@@ -58,10 +61,8 @@ cat > heavyusers.txt
 # rm kernlog.txt
 
 # Now dump the iptables to list the current set of drops
-echo "Addresses with greater than $NUM_ENTRIES connections that aren't listed 
-in iptables" 
 # List all iptables rules
-iptables -nL | \
+/sbin/iptables -nL | \
 # save that list in iptables.txt
 tee iptables.txt | \
 # only keep DROPPEDNETPERF lines
@@ -80,4 +81,4 @@ grep -vf whitelist.txt > filteredheavyusers.txt
 grep -f filteredheavyusers.txt countsofip.txt
 
 # And finally scan the iptables for duplicate addresses
-sh checkforiptablesdups.sh
+sh /home/richb/src/kernlogscan/checkforiptablesdups.sh
