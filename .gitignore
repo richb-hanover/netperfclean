@@ -10,3 +10,5 @@ countsofip.txt
 filteredheavyusers.txt
 whitelist.txt
 previousheavyusers.txt
+iptables.txt
+
