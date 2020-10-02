@@ -4,6 +4,9 @@ f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 2
 f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
 f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
 f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
+DROPPEDNETPERF  tcp  --  75.4.201.101         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  73.162.233.158       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  108.231.146.6        0.0.0.0/0            tcp dpt:12865
 DROPPEDNETPERF  tcp  --  93.33.85.32          0.0.0.0/0            tcp dpt:12865
 DROPPEDNETPERF  tcp  --  92.253.248.144       0.0.0.0/0            tcp dpt:12865
 DROPPEDNETPERF  tcp  --  75.48.62.90          0.0.0.0/0            tcp dpt:12865
@@ -246,7 +249,7 @@ Chain OUTPUT (policy ACCEPT)
 target     prot opt source               destination         
 LOG        tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:80 LOG flags 0 level 4 prefix "Outgoing web "
 
-Chain DROPPEDNETPERF (230 references)
+Chain DROPPEDNETPERF (233 references)
 target     prot opt source               destination         
 DROP       all  --  0.0.0.0/0            0.0.0.0/0           
 
