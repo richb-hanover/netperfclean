@@ -23,5 +23,5 @@ su -c 'ip6tables-save > /etc/iptables/rules.v6'
 
 # And commit the newest iptables.txt (but as user 'richb', not root)
 
-su richb -c 'git add iptables.txt'
-su richb -c 'git commit -m "Update iptables.txt"'
+# su richb -c 'git add iptables.txt'
+# su richb -c 'git commit -m "Update iptables.txt"'
