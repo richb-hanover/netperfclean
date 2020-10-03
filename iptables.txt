@@ -4,6 +4,16 @@ f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 2
 f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
 f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
 f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
+DROPPEDNETPERF  tcp  --  98.255.45.230        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  76.247.179.44        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  71.198.165.99        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  70.185.159.13        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  63.249.98.233        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  23.122.230.127       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  173.164.245.86       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  172.90.40.88         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  162.193.247.243      0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  108.66.16.177        0.0.0.0/0            tcp dpt:12865
 DROPPEDNETPERF  tcp  --  98.33.34.228         0.0.0.0/0            tcp dpt:12865
 DROPPEDNETPERF  tcp  --  73.93.85.169         0.0.0.0/0            tcp dpt:12865
 DROPPEDNETPERF  tcp  --  69.181.158.170       0.0.0.0/0            tcp dpt:12865
@@ -338,7 +348,7 @@ Chain OUTPUT (policy ACCEPT)
 target     prot opt source               destination         
 LOG        tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:80 LOG flags 0 level 4 prefix "Outgoing web "
 
-Chain DROPPEDNETPERF (322 references)
+Chain DROPPEDNETPERF (332 references)
 target     prot opt source               destination         
 DROP       all  --  0.0.0.0/0            0.0.0.0/0           
 
@@ -349,6 +359,7 @@ DROP       all  --  0.0.0.0/0            0.0.0.0/0
 
 Chain f2b-sshd (7 references)
 target     prot opt source               destination         
+REJECT     all  --  104.131.60.112       0.0.0.0/0            reject-with icmp-port-unreachable
 REJECT     all  --  40.76.71.62          0.0.0.0/0            reject-with icmp-port-unreachable
 RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
 RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
