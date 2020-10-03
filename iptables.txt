@@ -359,7 +359,6 @@ DROP       all  --  0.0.0.0/0            0.0.0.0/0
 
 Chain f2b-sshd (7 references)
 target     prot opt source               destination         
-REJECT     all  --  104.131.60.112       0.0.0.0/0            reject-with icmp-port-unreachable
 REJECT     all  --  40.76.71.62          0.0.0.0/0            reject-with icmp-port-unreachable
 RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
 RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
