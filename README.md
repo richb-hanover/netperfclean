@@ -16,10 +16,12 @@ This rapidly exhausts the bandwidth caps of (low-cost) hosting plans, leading to
 This repository contains a number of tools for identifying and shutting down "abusers" who run bandwidth tests continually.
 It does this by using `iptables` rules to identify traffic to port 12865 (the default netperf port), counting the connections, and blocking addresses that cross a threshold.
 
-The current threshold is set at 1,000 connections per 24-48 hour time interval.
+The current threshold is set at 5000 connections per 24-48 hour time 
+interval.
 This ballpark number was computed using the following factors: a normal "speed test" typically uses five simultaneous connections to "fill the pipe": first in the download phase then the upload phase.
 Thus, a single speed test session creates 10 connections.
-If the count exceeds the threshold (1000, or about 100 speed tests over a day or two), we stop accepting connections for that address.
+If the count exceeds the threshold (1000, or about 50 speed tests over a 
+day or two), we stop accepting connections for that address.
 
 ## The Details
 
@@ -40,7 +42,7 @@ This script calls each of the following scripts in sequence:
 * **findunfiltered.sh ###** scans the `/var/log/kern.log*` files for those "Incoming 
 netperf" lines,
 isolates the SRC=... addresses, and creates a frequency count of those addresses. It writes a list of IP addresses
-that occur more than the threshold (default = 1000) 
+that occur more than the threshold  
 to the `heavyusers.txt` file.
 
    The script then compares those new addresses (in `heavyusers.txt`) to the list of IP addresses that are already present in iptables with a DROPPEDNETPERF target

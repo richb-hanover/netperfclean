@@ -4,6 +4,35 @@ f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 2
 f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
 f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
 f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
+DROPPEDNETPERF  tcp  --  136.57.218.159       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  100.15.168.81        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  200.127.187.153      0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  99.235.226.102       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  73.211.20.21         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  181.27.151.42        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  82.44.84.133         0.0.0.0/0            tcp dpt:12865
+f2b-sshd   tcp  --  0.0.0.0/0            0.0.0.0/0            multiport dports 22
+DROPPEDNETPERF  tcp  --  166.170.28.120       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  108.54.212.240       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  24.4.144.199         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  94.66.58.153         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  109.77.242.120       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  166.177.186.127      0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  141.193.221.33       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  107.131.107.68       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  104.1.195.22         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  96.82.82.150         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  108.85.89.107        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  107.206.209.116      0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  99.161.160.223       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  76.102.9.116         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  112.118.31.175       0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  68.74.216.125        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  172.250.182.241      0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  96.95.215.182        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  73.158.146.39        0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  99.31.214.95         0.0.0.0/0            tcp dpt:12865
+DROPPEDNETPERF  tcp  --  87.206.107.199       0.0.0.0/0            tcp dpt:12865
 DROPPEDNETPERF  tcp  --  217.105.19.93        0.0.0.0/0            tcp dpt:12865
 DROPPEDNETPERF  tcp  --  94.64.248.23         0.0.0.0/0            tcp dpt:12865
 DROPPEDNETPERF  tcp  --  73.223.98.93         0.0.0.0/0            tcp dpt:12865
@@ -445,7 +474,7 @@ Chain OUTPUT (policy ACCEPT)
 target     prot opt source               destination         
 LOG        tcp  --  0.0.0.0/0            0.0.0.0/0            tcp dpt:80 LOG flags 0 level 4 prefix "Outgoing web "
 
-Chain DROPPEDNETPERF (429 references)
+Chain DROPPEDNETPERF (457 references)
 target     prot opt source               destination         
 DROP       all  --  0.0.0.0/0            0.0.0.0/0           
 
@@ -454,9 +483,10 @@ target     prot opt source               destination
 LOG        all  --  0.0.0.0/0            0.0.0.0/0            LOG flags 0 level 4 prefix "Rate-limit netperf "
 DROP       all  --  0.0.0.0/0            0.0.0.0/0           
 
-Chain f2b-sshd (7 references)
+Chain f2b-sshd (8 references)
 target     prot opt source               destination         
 REJECT     all  --  40.76.71.62          0.0.0.0/0            reject-with icmp-port-unreachable
+RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
 RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
 RETURN     all  --  0.0.0.0/0            0.0.0.0/0           
 RETURN     all  --  0.0.0.0/0            0.0.0.0/0           

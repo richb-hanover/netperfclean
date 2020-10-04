@@ -39,7 +39,7 @@ cd /home/richb/src/kernlogscan
 # zcat /var/log/kern.log.4.gz >> kernlog.txt
 # zcat /var/log/kern.log.3.gz >> kernlog.txt
 # zcat /var/log/kern.log.2.gz >> kernlog.txt
-cat /var/log/kern.log.1     >> kernlog.txt
+cat /var/log/kern.log.1     > kernlog.txt
 cat /var/log/kern.log       >> kernlog.txt
 
 # Starting with kernlog.txt
