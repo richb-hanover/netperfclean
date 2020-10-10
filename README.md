@@ -16,12 +16,13 @@ This rapidly exhausts the bandwidth caps of (low-cost) hosting plans, leading to
 This repository contains a number of tools for identifying and shutting down "abusers" who run bandwidth tests continually.
 It does this by using `iptables` rules to identify traffic to port 12865 (the default netperf port), counting the connections, and blocking addresses that cross a threshold.
 
-The current threshold is set at 5000 connections per 24-48 hour time 
+The current threshold is set at 500 connections per 24-48 hour time 
 interval.
 This ballpark number was computed using the following factors: a normal "speed test" typically uses five simultaneous connections to "fill the pipe": first in the download phase then the upload phase.
 Thus, a single speed test session creates 10 connections.
-If the count exceeds the threshold (1000, or about 50 speed tests over a 
-day or two), we stop accepting connections for that address.
+If the count exceeds the threshold (500),
+it means that address has initiated about 50 speed tests over a 
+day or two, so we stop accepting connections for that address.
 
 ## The Details
 
