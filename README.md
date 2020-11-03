@@ -46,8 +46,7 @@ This script calls each of the following scripts in sequence:
 * **findunfiltered.sh ###** scans the `/var/log/kern.log*` files for those "Incoming 
 netperf" lines,
 isolates the SRC=... addresses, and creates a frequency count of those addresses. It writes a list of IP addresses
-that occur more than the threshold  
-to the `heavyusers.txt` file.
+that occur more than the threshold to the `heavyusers.txt` file.
 
    The script then compares those new addresses (in `heavyusers.txt`) to the list of IP addresses that are already present in iptables with a DROPPEDNETPERF target
 and writes new addresses to `filteredheavyusers.txt`
@@ -108,7 +107,7 @@ so `ipset` may become necessary in the future.
 To date, these scripts to not attempt to use any `iptables` rate limiting functions.
 Normally, an address creeps up to the limit over time, then exceeds it and gets blacklisted.
 
-  However, there have been occasions where the IP addresses have accumulated thousands (in one case, 14,000) of new connections between 30-minute runs of the cron job.
+   However, there have been occasions where the IP addresses have accumulated thousands (in one case, 14,000) of new connections between 30-minute runs of the cron job.
 (This can be detected from the output of the `findunfilteredips.sh` script.
 It displays two lists:
 addresses that were just blocked because they exceeded the (500) connection threshold,
