@@ -91,6 +91,15 @@ sudo su -c 'ip6tables-save > /etc/iptables/rules.v6'
  
 `iptables -nvL` displays counts of the number of packets and bytes processed by each of the `iptables` rules.
 
+## To-do
+
+I have heard that `ipset` is a better way to match large numbers of IP addresses.
+I have not implemented it.
+
+At the moment, my iptables list has about 800 addresses with no obvious effect on the server.
+However, it's growing by 10 devices per day (presumably without limit),
+so `ipset` may become necessary in the future.
+
 ## Old info - not necessarily up-to-date
 
 Description of other files:
