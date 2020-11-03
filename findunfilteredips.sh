@@ -42,6 +42,9 @@ cd /home/richb/src/kernlogscan
 cat /var/log/kern.log.1     > kernlog.txt
 cat /var/log/kern.log       >> kernlog.txt
 
+# Preserve previous counts
+mv countsofip.txt previouscounts.txt
+
 # Starting with kernlog.txt
 INFILE='kernlog.txt'
 # count the occurrences of "Incoming"
@@ -79,6 +82,11 @@ comm -13 - heavyusers.txt | \
 grep -vf whitelist.txt > filteredheavyusers.txt
 # display addresses from countsofip.txt that aren't already in iptables
 grep -f filteredheavyusers.txt countsofip.txt
+
+# and display the top 30 previous heaviest (to see where they came from)
+echo ""
+echo "Previous heaviest users"
+head -30 previouscounts.txt
 
 # And finally scan the iptables for duplicate addresses
 sh /home/richb/src/kernlogscan/checkforiptablesdups.sh
