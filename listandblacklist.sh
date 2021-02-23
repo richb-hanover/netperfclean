@@ -8,6 +8,6 @@
 #   assuming five up and five down streams per test.
 #
 
-/home/richb/src/kernlogscan/findunfilteredips.sh 500
+/home/deploy/src/netperfclean/findunfilteredips.sh 500
 
-/home/richb/src/kernlogscan/addtoblacklist.sh
+/home/deploy/src/netperfclean/addtoblacklist.sh

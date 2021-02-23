@@ -30,7 +30,7 @@ fi
 echo "`date +'%d %b %Y %H:%M:%S'`: Addresses with more than $NUM_ENTRIES connections that aren't listed in iptables" 
 
 # cd to this directory so all files are local...
-cd /home/richb/src/kernlogscan
+cd /home/deploy/src/netperfclean
 
 # combine all recent kern.log files into a local file
 # zcat /var/log/kern.log.7.gz >  kernlog.txt
@@ -65,7 +65,7 @@ cat > heavyusers.txt
 
 # Now dump the iptables to list the current set of drops
 # List all iptables rules
-/sbin/iptables -nL | \
+/usr/sbin/iptables -nL | \
 # save that list in iptables.txt
 tee iptables.txt | \
 # only keep DROPPEDNETPERF lines
@@ -89,4 +89,4 @@ echo "Previous heaviest users"
 head -30 previouscounts.txt
 
 # And finally scan the iptables for duplicate addresses
-sh /home/richb/src/kernlogscan/checkforiptablesdups.sh
+sh checkforiptablesdups.sh

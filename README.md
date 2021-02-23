@@ -93,6 +93,13 @@ sudo su -c 'ip6tables-save > /etc/iptables/rules.v6'
  
 `iptables -nvL` displays counts of the number of packets and bytes processed by each of the `iptables` rules.
 
+## cron setup
+
+Using `sudo crontab -e` add a line with:
+
+```
+0,15,30,45 * * * * /home/deploy/src/netperfclean/listandblacklist.sh
+```
 ## Potential To-do's
 
 The scripts currently work to my satisfaction, keeping total bandwidth per month to less than 4 TBytes.
