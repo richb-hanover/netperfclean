@@ -95,11 +95,64 @@ sudo su -c 'ip6tables-save > /etc/iptables/rules.v6'
 
 ## cron setup
 
-Using `sudo crontab -e` add a line with:
+Using `sudo crontab -e` add these lines:
 
 ```
+# Send the output of the script via email
+MAILTO="account@example.com"
+
+# Run the listandblacklist script every 15 minutes
 0,15,30,45 * * * * /home/deploy/src/netperfclean/listandblacklist.sh
+
+# Remove all netperf log files once per hour
+45 * * * * rm /var/log/netserver.debug*
 ```
+
+## rsyslog setup
+
+iptables is always running.
+And it sends all its LOG messages to `kern.*`
+But rsyslog needs to be configured to receive imklog messages and send them to a specific file.
+These two files must be configured:
+
+**/etc/rsyslog.conf**
+
+```
+...
+module(load="imklog")
+...
+$IncludeConfig /etc/rsyslog.d/*.conf
+...
+```
+
+**/etc/rsyslog.d/50-default.conf**
+
+```
+...
+kern.*				-/var/log/kern.log
+...
+```
+
+Optionally, additional files can be configured in `/etc/rsyslog.d/`
+that govern treatment for log messages.
+These must be numerically *before* `50-default.conf` to take precedence.
+For example, [this file](https://askubuntu.com/questions/348439/where-can-i-find-the-iptables-log-file-and-how-can-i-change-its-location/348448#348448) intercepts messages that contain "[netfilter] "
+and redirects them to `/var/log/iptables.log`.
+It also stops processing of the messge, so it won't appear in other logs.
+
+**/etc/rsyslog.d/10-iptables.log**
+
+```
+:msg,contains,"[netfilter] " -/var/log/iptables.log
+& stop
+```
+
+rsyslog must be restarted to recognize hanges to rsyslog configuration files. 
+
+```
+sudo service rsyslog restart
+```
+
 ## Potential To-do's
 
 The scripts currently work to my satisfaction, keeping total bandwidth per month to less than 4 TBytes.
@@ -128,6 +181,16 @@ Again, a review of the amount of the actual traffic involved could determine whe
 
 4. There is no facility for automatically removing an address from the blacklist.
 If someone writes to me and says their address seems to be blocked, I will simply remove their address from the rules.
+
+5. *fail2ban* seems to have much in common with these scripts:
+detecting some form of bad behavior and causing then not to connect. 
+
+6. Abusing addresses don't get any feedback. 
+Everything's working one moment, then stops, and never works again.
+It might be better feedback to drop the permitted bandwidth to something low - say 2 kbps.
+It would even be a diagnostic clue if someone mentioned,
+"Hey, I was using netperf.bufferbloat.net and it was working fine.
+But since yesterday, I only get 2kbps, and I know that's not right..." 
 
 ## Old info - not necessarily up-to-date
 
