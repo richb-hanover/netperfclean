@@ -63,14 +63,20 @@ The command below appends (-A) to the INPUT chain a rule so that a TCP packet on
 sudo iptables -A INPUT -p tcp --dport 12865 -j LOG --log-prefix "Incoming netperf "
 ```
 Second, (one time) create a DROPPEDNETPERF chain to process packets that exceed the threshold.
-*Note:* Originally, this chain logged a "Dropped netperf" message (the second rule below), but it no longer does this.
+
+*Note:* This now (Feb2021) REJECT's the packet, instead of DROP'ing it,
+so that the requestor knows that we are ignoring them.
+
+*Note:* Originally, this chain logged a "Dropped netperf" message
+(the second rule below), but it no longer does this.
 That's because, under load, the logging messages for the high volume of dropped packets placed too much load on the server.
+
 The commands to create the chain are:
 
 ```
 sudo iptables -N DROPPEDNETPERF
 # sudo iptables -A DROPPEDNETPERF -j LOG --log-prefix "Dropped netperf "
-sudo iptables -A DROPPEDNETPERF -j DROP
+sudo iptables -A DROPPEDNETPERF -j REJECT
 ```
 
 Finally, the `addtoblacklist.sh` script adds an `iptables` rule to drop connections for the specified address:
@@ -142,12 +148,15 @@ It also stops processing of the messge, so it won't appear in other logs.
 
 **/etc/rsyslog.d/10-iptables.log**
 
+*This is unsubstantiated, and isn't currently working 25Feb2021*
+
 ```
+# This is unsubstantiated...
 :msg,contains,"[netfilter] " -/var/log/iptables.log
 & stop
 ```
 
-rsyslog must be restarted to recognize hanges to rsyslog configuration files. 
+rsyslog must be restarted to recognize changes to rsyslog configuration files. 
 
 ```
 sudo service rsyslog restart
