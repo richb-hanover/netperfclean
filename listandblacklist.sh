@@ -7,6 +7,6 @@
 # This will check a 24 to 48 hour period assuming five up and five down streams per test.
 #
 
-/home/deploy/src/netperfclean/findunfilteredips.sh 400
+/home/deploy/src/netperfclean/findunfilteredips.sh 350
 
 /home/deploy/src/netperfclean/addtoblacklist.sh
