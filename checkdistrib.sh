@@ -11,7 +11,7 @@
 #
 # Format of kernlog.txt
 #
-# Sep  1 03:10:57 netperf kernel: [3582360.450529] Dropped netperf  ...
+# Sep  1 03:10:57 netperf kernel: [3582360.450529] Incoming netperf  ...
 #
 # - First remove everything from 'netperf kernel' to the end of the line
 # - then remove the last six characters (the :mm:ss) leaving only the hours
