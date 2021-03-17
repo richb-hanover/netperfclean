@@ -2,13 +2,13 @@
 #
 # This script scans kern.log files to count entries that are tagged with "Incoming"
 # These entries are created by an iptables rule for each connection to port 12685
-# The script then looks for addresses of "heavy users"  that have made more than 
+# The script then looks for addresses of "heavy users"  that have made more than
 # $NUM_ENTRIESconnections recently indicating they're abusing the netperf server.
-# 
+#
 # The script has several outputs:
 # - filteredheavyusers.txt - a list of IP addresses that are not already in iptables
 # - countsofip.txt - counts of IP addresses > $NUM_ENTRIES
-# 
+#
 
 # Scan the $INFILE for lines with specified entries
 # and count their occurrence
@@ -27,7 +27,7 @@ then
    NUM_ENTRIES=5000
 fi
 
-echo "`date +'%d %b %Y %H:%M:%S'`: Addresses with more than $NUM_ENTRIES connections that aren't listed in iptables" 
+echo "`date +'%d %b %Y %H:%M:%S'`: Addresses with more than $NUM_ENTRIES connections that aren't listed in iptables"
 
 # cd to this directory so all files are local...
 cd /home/deploy/src/netperfclean
@@ -63,6 +63,10 @@ sort | \
 cat > heavyusers.txt
 # rm kernlog.txt
 
+# append the list of abusers who're consistent testers
+python ./lookforconstantusers.py < /var/log/kern.log.1 >> heavyusers.txt -e ./Test_Data/constantusers.txt
+sort -o heavyusers.txt  heavyusers.txt     # sort in place
+
 # Now dump the iptables to list the current set of drops
 # List all iptables rules
 /usr/sbin/iptables -nL | \
@@ -78,7 +82,7 @@ sort | \
 tee iptables-addresses.txt | \
 # find the addresses in heavyusers.txt that *aren't* already in iptables
 comm -13 - heavyusers.txt | \
-# remove whitelist hosts from list to be added to iptables 
+# remove whitelist hosts from list to be added to iptables
 grep -vf whitelist.txt > filteredheavyusers.txt
 # display addresses from countsofip.txt that aren't already in iptables
 grep -f filteredheavyusers.txt countsofip.txt

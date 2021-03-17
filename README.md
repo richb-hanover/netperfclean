@@ -16,13 +16,20 @@ This rapidly exhausts the bandwidth caps of (low-cost) hosting plans, leading to
 This repository contains a number of tools for identifying and shutting down "abusers" who run bandwidth tests continually.
 It does this by using `iptables` rules to identify traffic to port 12865 (the default netperf port), counting the connections, and blocking addresses that cross a threshold.
 
-*Current Settings:* The threshold is set at 500 connections per 24-48 hour time interval.
+*Current Settings:* The threshold is set at 350 connections per 24-48 hour time interval.
 This ballpark number was computed using the following factors: a normal "speed test" typically uses five simultaneous connections to "fill the pipe": first in the download phase then the upload phase.
 Thus, a single speed test session creates 10 connections.
 If the count exceeds the threshold (500),
 it means that address has initiated about 50 speed tests over a 
 day or two, so we stop accepting connections for that address.
 The script currently runs every 30 minutes via a `cron` job.
+
+The `findunfilteredips.sh` script also runs a program to examine
+the time intervals and total duration of each IP's test requests.
+If an address makes more than 20 tests
+over a significant amount of time (>= 21 hours)
+without a significant break (at least one 7 hour gap between tests),
+then it gets flagged to be blacklisted.
 
 **TL;DR** These settings seem to limit the total traffic to less than 4 TB/month (the limit on my cheap VPS server)
 while not inconveniencing legitimate researchers or people tuning their home networks.
@@ -48,54 +55,75 @@ netperf" lines,
 isolates the SRC=... addresses, and creates a frequency count of those addresses. It writes a list of IP addresses
 that occur more than the threshold to the `heavyusers.txt` file.
 
-   The script then compares those new addresses (in `heavyusers.txt`) to the list of IP addresses that are already present in iptables with a DROPPEDNETPERF target
+   The script then compares those new addresses (in `heavyusers.txt`) to the list of IP addresses that are already present in iptables with a LIMITEDNETPERF target
 and writes new addresses to `filteredheavyusers.txt`
 
-* **addtoblacklist.sh** reads `filteredheavyusers.txt` to update the `iptables` rules by adding each address to the INPUT chain with a -j DROPPEDNETPERF target.
-The DROPPEDNETPERF chain drops the packet (and thus the connection.) 
+* **lookforconstantusers.py** Python program to compare time interval between tests
+and overall duration to find blacklist addresses.
+
+* **addtoblacklist.sh** reads `filteredheavyusers.txt` to update the `iptables` rules by adding each address to the INPUT chain with a -j LIMITEDNETPERF target.
+The LIMITEDNETPERF chain drops the packet (and thus the connection.) 
 
 ## iptables setup   
 
-First, (one time) add a rule to the INPUT chain to log each arriving netperf connection.
-The command below appends (-A) to the INPUT chain a rule so that a TCP packet on port 12865 jumps to the LOG chain with the prefix "Incoming netperf "
+*Note: This description is ahead of the implementation.
+New blacklist rules are still added to the INPUT chain.*
+
+First, (one time) add a rule to the INPUT chain to detect each arriving netperf connection.
+The command below appends (-A) to the INPUT chain a rule so that a TCP packet on port 12865 jumps to the NETPERF chain.
 
 ```
-sudo iptables -A INPUT -p tcp --dport 12865 -j LOG --log-prefix "Incoming netperf "
+sudo iptables -A INPUT -p tcp --dport 12865 -j NETPERF
+# (old) sudo iptables -A INPUT -p tcp --dport 12865 -j LOG --log-prefix "Incoming netperf "
 ```
-Second, (one time) create a DROPPEDNETPERF chain to process packets that exceed the threshold.
 
-*Note:* This now (Feb2021) REJECT's the packet, instead of DROP'ing it,
+Next, create a NETPERF chain to handle those incoming netperf connections.
+This will will log newly-arrived connections.
+It also receives the rules (inserted at position 1)
+for blacklisted addresses that jump to LIMITEDNETPERF
+
+```
+sudo iptables -N NETPERF
+sudo iptables -A NETPERF -p tcp --dport 12865 -j LOG --log-prefix "Incoming netperf "
+```
+
+Next, (one time) create a LIMITEDNETPERF chain to process packets that exceed the threshold.
+
+```
+sudo iptables -N LIMITEDNETPERF
+# sudo iptables -A LIMITEDNETPERF -j LOG --log-prefix "Dropped netperf "
+sudo iptables -A LIMITEDNETPERF -j REJECT
+```
+
+*Note:* This now (Mar2021) REJECT's the packet, instead of DROP'ing it,
 so that the requestor knows that we are ignoring them.
 
 *Note:* Originally, this chain logged a "Dropped netperf" message
-(the second rule below), but it no longer does this.
+(the second rule above), but it no longer does this.
 That's because, under load, the logging messages for the high volume of dropped packets placed too much load on the server.
 
-The commands to create the chain are:
-
-```
-sudo iptables -N DROPPEDNETPERF
-# sudo iptables -A DROPPEDNETPERF -j LOG --log-prefix "Dropped netperf "
-sudo iptables -A DROPPEDNETPERF -j REJECT
-```
-
-Finally, the `addtoblacklist.sh` script adds an `iptables` rule to drop connections for the specified address:
-insert (-I) a rule in the INPUT chain at position 3, with criteria for tcp and port 12865 and the specified source address.
-A matching packet "jumps to" the DROPPEDNETPERF chain that subsequently drops the packet.
+Finally, the `addtoblacklist.sh` script adds an `iptables` rule to the NETPERF chain that drops connections for the specified address:
+insert (-I) a rule in the NETPERF chain at position 1, with criteria for the specified source address.
+A matching packet "jumps to" the LIMITEDNETPERF chain that subsequently drops/rejects the packet.
 This prevents the connection from becoming established.
 
 ```
-sudo iptables -I INPUT 3 -p tcp --dport 12865 -j DROPPEDNETPERF --src <ip-address>
+sudo iptables -I NETPERF 1 --src <ip-address> -j LIMITEDNETPERF
 ```
 
 The command above takes effect immediately.
 If you wish the command to persist across reboots, you must use `iptables-save`, like this.
 These commands must be run as root.
 
-   ```
+```
+# rules for iptables-persistent
 sudo su -c 'iptables-save  > /etc/iptables/rules.v4' 
 sudo su -c 'ip6tables-save > /etc/iptables/rules.v6'
-   ```
+
+# don't use these
+# sudo su -c 'iptables-save  > /etc/iptables.up.rules'
+# sudo su -c 'ip6tables-save  > /etc/ip6tables.up.rules'
+```
  
 `iptables -nvL` displays counts of the number of packets and bytes processed by each of the `iptables` rules.
 
@@ -209,7 +237,7 @@ Description of other files:
    * `heavyusers.txt` - IPs of devices with > *threshold* connections from log files
    * `whitelist.txt` - a file of IP addresses never to blacklist
    * `filteredheavyusers.txt` - heavy users not present in iptables
-   * `iptables-addresses.txt` - addresses with DROPPEDNETPERF as the target in iptables
+   * `iptables-addresses.txt` - addresses with LIMITEDNETPERF as the target in iptables
    * `iptables.txt` - raw output of 'iptables -nL'
    * `kernlog.txt` - concatenated output of all log files
    * `sh checkdistrib.sh <ipaddress>` - a script to display the number of tests for each one-hour interval for a specified address.
