@@ -129,16 +129,16 @@ def main(argv=None):
         print >> fe, report,
 
         if item[1]["count"] <= 20:          # skip addresses making <= 20 tests
-            print >> fe, "ignored: < 20 tests"
+            print >> fe, "ignore: < 20 tests"
             continue
         if item[1]["duration"] <= 21*60*60: # skip addresses whose tests span fewer than 21 hours
-            print >> fe, "ignored: < 21 hours"
+            print >> fe, "ignore: < 21 hours"
             continue
         if item[1]["maxInterval"] > 7*60*60: # skip addresses where there's > 7 hours between the test
-            print >> fe, "ignored: break > 7 hours"
+            print >> fe, "ignore: break > 7 hours"
             continue
         print >> fo, "%s" % item[0]
-        print >> fe, " "
+        print >> fe, "BLACKLIST"
         count += 1
 
     print >> fe, "Total addresses blacklisted: %d" % count
