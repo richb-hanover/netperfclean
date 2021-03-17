@@ -45,6 +45,10 @@ cat /var/log/kern.log       >> kernlog.txt
 # Preserve previous counts
 mv countsofip.txt previouscounts.txt
 
+# Create a list of abusers who're consistent testers - save in heavyusers.txt
+python ./lookforconstantusers.py < /var/log/kern.log.1  -e ./Test_Data/constantusers.txt | \
+cat > heavyusers.txt
+
 # Starting with kernlog.txt
 INFILE='kernlog.txt'
 # count the occurrences of "Incoming"
@@ -59,15 +63,12 @@ awk -v num_entries=$NUM_ENTRIES \
     }
     END { } ' | \
 sort | \
-# save that list of IP addresses with high counts
-cat > heavyusers.txt
-# rm kernlog.txt
+# append that list of IP addresses to heavyusers.txt
+cat >> heavyusers.txt
+# sort heavyusers.txt in place
+sort -o heavyusers.txt  heavyusers.txt
 
-# append the list of abusers who're consistent testers
-python ./lookforconstantusers.py < /var/log/kern.log.1 >> heavyusers.txt -e ./Test_Data/constantusers.txt
-sort -o heavyusers.txt  heavyusers.txt     # sort in place
-
-# Now dump the iptables to list the current set of drops
+# Now dump the iptables to list the current set of dropped addresses
 # List all iptables rules
 /usr/sbin/iptables -nL | \
 # save that list in iptables.txt
