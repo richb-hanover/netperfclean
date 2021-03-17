@@ -125,17 +125,23 @@ def main(argv=None):
 
     count = 0
     for item in abusers:
+        report = "%s\t%d\t%s\t%s" % (item[0],item[1]["count"],hhmm(item[1]["maxInterval"]),hhmm(item[1]["duration"]))
+        print >> fe, report,
+
         if item[1]["count"] <= 20:          # skip addresses making <= 20 tests
+            print >> fe, "ignored: < 20 tests"
             continue
         if item[1]["duration"] <= 21*60*60: # skip addresses whose tests span fewer than 21 hours
+            print >> fe, "ignored: < 21 hours"
             continue
         if item[1]["maxInterval"] > 7*60*60: # skip addresses where there's > 7 hours between the test
+            print >> fe, "ignored: break > 7 hours"
             continue
         print >> fo, "%s" % item[0]
-        print >> fe, "%s\t%d\t%s\t%s" % (item[0],item[1]["count"],hhmm(item[1]["maxInterval"]),hhmm(item[1]["duration"]))
+        print >> fe, " "
         count += 1
 
-    print >> fe, "Total addresses listed: %d" % count
+    print >> fe, "Total addresses blacklisted: %d" % count
 
 if __name__ == "__main__":
     sys.exit(main())
