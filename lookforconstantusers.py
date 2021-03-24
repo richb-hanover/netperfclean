@@ -49,16 +49,18 @@ class KernLogFile:
 
         connTime = 3600*int(hh) + 60*int(mm) + int(ss)
         if connTime < self.prevConnTime:
-            return []                       # EOF - got into next day's data
+            return []                       # got into next day's data - treat as EOF
         self.prevConnTime = connTime
 
         return [connTime,ipAdrs]
+        
 '''
-hhmm - return "hh:mm" from a number of seconds
+hhmm - format number of seconds as "hh:mm"
 '''
 def hhmm(secs):
-    hh = int(secs/3600)
-    return '%02d:%02d' % (hh, (secs-hh*3600)/60 )
+    roundedsecs = secs+30
+    hh = int(roundedsecs/3600)
+    return '%02d:%02d' % (hh, (roundedsecs-hh*3600)/60 )
 
 
 '''
@@ -101,44 +103,56 @@ def main(argv=None):
             interval = connTime - adrsDict[ipAdrs]["prevTime"]
             adrsDict[ipAdrs]["prevTime"] = connTime
             adrsDict[ipAdrs]["duration"] = connTime - adrsDict[ipAdrs]["firstTime"]
-            if interval > adrsDict[ipAdrs]["maxInterval"]:
-                adrsDict[ipAdrs]["maxInterval"] = interval
+            if interval > adrsDict[ipAdrs]["maxIdle"]:
+                adrsDict[ipAdrs]["maxIdle"] = interval
             adrsDict[ipAdrs]["count"] += 1
 
         else:
             adrsDict[ipAdrs] = {
                 "firstTime":connTime,
                 "prevTime": connTime,
-                "maxInterval":0,
+                "maxIdle":0,
                 "count": 1,
                 "duration":0
                 }
         # print adrsDict[ipAdrs]
 
     # Thanks SO: https://stackoverflow.com/questions/16412563/python-sorting-dictionary-of-dictionaries
-    abusers = sorted(adrsDict.items(), key=lambda x: x[1]['maxInterval'], reverse=True)
-    print >> fe, "IP Address\tCount\tMax Interval\tTotal Duration"
-
+    abusers = sorted(adrsDict.items(), key=lambda x: x[1]['maxIdle'], reverse=True)
+    print >> fe, "IP Address\tCount\tFirst\tMax Idle\tTotal Duration\tDurOfTests\tRate\tReason"
 
     # print abusers[0][0]
     # print abusers[0][1]
 
     count = 0
     for item in abusers:
-        report = "%s\t%d\t%s\t%s" % (item[0],item[1]["count"],hhmm(item[1]["maxInterval"]),hhmm(item[1]["duration"]))
+        theIP = item[0]
+        first = item[1]["firstTime"]
+        count = item[1]["count"]
+        dur = item[1]["duration"]
+        maxIdle = item[1]["maxIdle"]
+        durOfTests = max (1,dur-maxIdle)
+        rate = count / float(durOfTests)
+
+        report = "%s\t%d\t%s\t%s\t%s\t%d\t%1.2f\t" % (theIP, count, hhmm(first), hhmm(maxIdle), hhmm(dur), durOfTests, rate)
         print >> fe, report,
 
-        if item[1]["count"] <= 20:          # skip addresses making <= 20 tests
+        reason = "BLACKLIST"
+        if count <= 20:          # skip addresses making <= 20 tests
             print >> fe, "ignore: < 20 tests"
             continue
-        if item[1]["duration"] <= 21*60*60: # skip addresses whose tests span fewer than 21 hours
+        if rate > 0.5:
+            print >> fo, "%s" % theIP
+            print >> fe, "BLACKLIST: high rate"
+            continue
+        if dur <= 21*60*60: # skip addresses whose tests span fewer than 21 hours
             print >> fe, "ignore: < 21 hours"
             continue
-        if item[1]["maxInterval"] > 7*60*60: # skip addresses where there's > 7 hours between the test
+        if maxIdle > 7*60*60: # skip addresses where there's > 7 hours between the test
             print >> fe, "ignore: break > 7 hours"
             continue
-        print >> fo, "%s" % item[0]
-        print >> fe, "BLACKLIST"
+        print >> fo, "%s" % theIP
+        print >> fe, reason
         count += 1
 
     print >> fe, "Total addresses blacklisted: %d" % count
