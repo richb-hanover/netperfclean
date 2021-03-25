@@ -63,10 +63,11 @@ awk -v num_entries=$NUM_ENTRIES \
     }
     END { } ' | \
 sort | \
-# append that list of IP addresses to heavyusers.txt
+# append that list of IP addresses to provisionalheavyusers.txt
 cat >> provisionalheavyusers.txt
-# sort heavyusers.txt in place
-sort -o heavyusers.txt  provisionalheavyusers.txt
+# sort provisionalheavyusers.txt and remove dups
+sort provisionalheavyusers.txt | \
+uniq > heavyusers.txt
 
 # Now dump the iptables to list the current set of dropped addresses
 # List all iptables rules
