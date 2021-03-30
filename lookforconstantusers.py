@@ -121,7 +121,7 @@ def main(argv=None):
     abusers = sorted(adrsDict.items(), key=lambda x: x[1]['maxIdle'], reverse=True)
     print >> fe, "IP Address\tCount\tFirst\tMax Idle\tTotal Duration\tDurOfTests\tRate\tReason"
 
-    count = 0
+    blacklistCount = 0
     for item in abusers:
         theIP = item[0]
         first = item[1]["firstTime"]
@@ -135,13 +135,18 @@ def main(argv=None):
         print >> fe, report,
 
         reason = "BLACKLIST"
+        if count == 14:          # Many bots make 14 tests/day
+            print >> fo, "%s" % theIP
+            print >> fe, "BLACKLIST: 14 tests"
+            blacklistCount += 1
+            continue
         if count <= 20:         # skip addresses making <= 20 tests
             print >> fe, "ignore: < 20 tests"
             continue
         if rate > 0.5:          # blacklist addresses making connections too fast
             print >> fo, "%s" % theIP
             print >> fe, "BLACKLIST: high rate"
-            count += 1
+            blacklistCount += 1
             continue
         if dur <= 21*60*60:     # skip addresses whose tests span fewer than 21 hours
             print >> fe, "ignore: < 21 hours"
@@ -152,9 +157,9 @@ def main(argv=None):
         else:                   # blacklist the remainder
             print >> fo, "%s" % theIP
             print >> fe, reason
-            count += 1
+            blacklistCount += 1
 
-    print >> fe, "Total addresses blacklisted: %d" % count
+    print >> fe, "Total addresses blacklisted: %d" % blacklistCount
 
 if __name__ == "__main__":
     sys.exit(main())
