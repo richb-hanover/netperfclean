@@ -66,18 +66,7 @@ The LIMITEDNETPERF chain drops the packet (and thus the connection.)
 
 ## iptables setup   
 
-*Note: This description is ahead of the implementation.
-New blacklist rules are still added to the INPUT chain.*
-
-First, (one time) add a rule to the INPUT chain to detect each arriving netperf connection.
-The command below appends (-A) to the INPUT chain a rule so that a TCP packet on port 12865 jumps to the NETPERF chain.
-
-```
-sudo iptables -A INPUT -p tcp --dport 12865 -j NETPERF
-# (old) sudo iptables -A INPUT -p tcp --dport 12865 -j LOG --log-prefix "Incoming netperf "
-```
-
-Next, create a NETPERF chain to handle those incoming netperf connections.
+First, (one time) create a NETPERF chain to handle those incoming netperf connections.
 This will will log newly-arrived connections.
 It also receives the rules (inserted at position 1)
 for blacklisted addresses that jump to LIMITEDNETPERF
@@ -85,6 +74,14 @@ for blacklisted addresses that jump to LIMITEDNETPERF
 ```
 sudo iptables -N NETPERF
 sudo iptables -A NETPERF -p tcp --dport 12865 -j LOG --log-prefix "Incoming netperf "
+```
+
+add a rule to the INPUT chain to detect each arriving netperf connection.
+The command below appends (-A) to the INPUT chain a rule so that a TCP packet on port 12865 jumps to the NETPERF chain.
+
+```
+sudo iptables -A INPUT -p tcp --dport 12865 -j NETPERF
+# (old) sudo iptables -A INPUT -p tcp --dport 12865 -j LOG --log-prefix "Incoming netperf "
 ```
 
 Next, (one time) create a LIMITEDNETPERF chain to process packets that exceed the threshold.

@@ -8,7 +8,8 @@ cd /home/deploy/src/netperfclean
 
 while read in; do
 
-     /usr/sbin/iptables -I INPUT 5 -p tcp --dport 12865 -j LIMITEDNETPERF --src "$in";
+     /usr/sbin/iptables -I NETPERF 1  -j LIMITEDNETPERF --src "$in";
+     # /usr/sbin/iptables -I INPUT 5 -p tcp --dport 12865 -j LIMITEDNETPERF --src "$in";
 
 done < filteredheavyusers.txt
 
