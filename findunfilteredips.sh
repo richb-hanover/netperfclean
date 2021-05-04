@@ -75,7 +75,7 @@ uniq > heavyusers.txt
 # save that list in iptables.txt
 tee iptables.txt | \
 # only keep LIMITEDNETPERF lines
-grep "LIMITEDNETPERF  tcp" | \
+grep "LIMITEDNETPERF" | \
 # isolate the source IP address of those LIMITEDNETPERF entries
 sed -E 's/^.* --  //g' | \
 sed -E 's/[ ].*$//g'  | \

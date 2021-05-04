@@ -14,7 +14,7 @@ awk 'BEGIN {
        print "Duplicate addresses found in iptables";
        print result;
        print "Use iptables -nL --line-numbers to find line numbers";
-       print "Use iptables -D INPUT # to remove";
+       print "Use iptables -D NETPERF # to remove";
        }
      } '
 
