@@ -73,7 +73,7 @@ for blacklisted addresses that jump to LIMITEDNETPERF
 
 ```
 sudo iptables -N NETPERF
-sudo iptables -A NETPERF -p tcp --dport 12865 -j LOG --log-prefix "Incoming netperf "
+sudo iptables -A NETPERF -j LOG --log-prefix "Incoming netperf "
 ```
 
 add a rule to the INPUT chain to detect each arriving netperf connection.
@@ -123,6 +123,27 @@ sudo su -c 'ip6tables-save > /etc/iptables/rules.v6'
 ```
  
 `iptables -nvL` displays counts of the number of packets and bytes processed by each of the `iptables` rules.
+
+## iptables maintenance
+
+Sometimes an address gets blacklisted in error.
+To take it out of the blacklist:
+
+1. Add the affected address to the end of the `whitelist.txt` file.
+
+2. Grep the iptables output for the specific address and find its line number.
+
+   ```
+sudo iptables -nL --line-numbers | grep W.X.Y.Z
+``` 
+
+3. Substitute the line number for the `"#"` in the command below.
+This removes the rule from the NETPERF chain.
+
+   ```
+sudo iptables -D NETPERF #
+# Then use the iptables-save commands above to make permanent
+```
 
 ## cron setup
 
