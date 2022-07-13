@@ -1,0 +1,96 @@
+---
+# Set up the iptables for a netperf server
+# This requires some heavy filtering to drop serious abusers of the server
+# Cribbing from:
+#   https://blog.ssdnodes.com/blog/secure-ansible-playbook-2/
+#   https://docs.ansible.com/ansible/latest/collections/ansible/builtin/iptables_module.html#parameter-flush
+#   http://www.freekb.net/Article?id=2640
+
+# To use this playbook:
+#
+# ansible-playbook -i "hostname," setup_iptables.yaml -u deploy --ask-become-pass
+#
+- name: Setup iptables for a netperf server
+  hosts: all
+  become: yes
+  gather_facts: false
+
+  vars:
+    UBUNTU_COMMON_LOGWATCH_EMAIL: "richb.hanover@gmail.com"
+    jitsi_http_port: "80"
+    jitsi_https_port: "443"
+    jitsi_udp_port: "10000"
+
+  tasks:
+
+    # Commented out - takes too long during development
+    
+    # Install the iptables package
+    # - name: Install the `iptables` package
+    #   package:
+    #     name: iptables
+    #     state: latest
+
+    - name: "flush all iptables rules"
+      ansible.builtin.iptables:
+        flush: yes
+
+    - name: "Delete the NETPERF chain if it exists"
+      ansible.builtin.iptables:
+        chain: NETPERF
+        chain_management: true
+        state: absent # desired state is absent
+
+    - name: "Delete the LIMITEDNETPERF chain if it exists"
+      ansible.builtin.iptables:
+        chain: LIMITEDNETPERF
+        chain_management: true
+        state: absent #desired state is absent
+       
+    - name: "allow connections on the lo interface on the input chain"
+      ansible.builtin.iptables:
+        chain: INPUT
+        in_interface: lo
+        jump: ACCEPT
+
+    - name: "allow SSH on the input chain"
+      ansible.builtin.iptables:
+        chain: INPUT
+        protocol: tcp
+        destination_port: 22
+        match: conntrack
+        ctstate: NEW,ESTABLISHED
+        source: 0.0.0.0/0
+        jump: ACCEPT
+
+    - name: "Create the new user-defined chain NETPERF"
+      iptables:
+        chain: NETPERF
+        chain_management: true
+
+    - name: "Create the new user-defined chain LIMITEDNETPERF"
+      iptables:
+        chain: LIMITEDNETPERF
+        chain_management: true
+
+    - name: "Log packets arriving in NETPERF with the prefix Incoming netperf"
+      ansible.builtin.iptables:
+        chain: NETPERF
+        action: append
+        state: present
+        log_prefix: "Incoming netperf "
+        log_level: info
+   
+    - name: "Copy each incoming port 12865 packet to NETPERF chain"
+      ansible.builtin.iptables:
+        chain: INPUT
+        protocol: tcp
+        destination_port: 12865
+        jump: NETPERF
+
+    - name: "Reject every packet that comes to the LIMITEDNETPERF chain"
+      ansible.builtin.iptables:
+        chain: LIMITEDNETPERF
+        jump: REJECT
+    
+    # ----------- Old cruft from jitsi file
